@@ -1,14 +1,12 @@
 from sqlalchemy import *
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import DeclarativeBase, relationship
+from sqlalchemy.orm import relationship
+from database import Base
 
 import enum
 class CampaignStatusEnum(str, enum.Enum):
     active = "active"
     paused = "paused"
-
-class Base(DeclarativeBase):
-    pass
 
 # модель компании
 class Campaign(Base):
@@ -76,7 +74,7 @@ class RuleEvalLog(Base):
     campaign_id = Column(UUID(as_uuid=True),
                          ForeignKey("campaign.id", ondelete="CASCADE"),
                          nullable=False)
-    triggered_rule = Column(Text)                 # может быть NULL
+    triggered_rule = Column(Text)                 # NULLable
     previous_target = Column(
         Enum(CampaignStatusEnum, name="campaign_status", create_type=False)
     )
