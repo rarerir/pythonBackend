@@ -6,21 +6,18 @@ from enum import Enum
 class CampaignStatusEnum(str, Enum):
     active = "active"
     paused = "paused"
-    stopped = "stopped"
-    draft = "draft"
-    completed = "completed"
 
 # кампании
 class CampaignBase(BaseModel):
     name: str
-    target_status: CampaignStatusEnum = CampaignStatusEnum.active
+    target_status: CampaignStatusEnum = CampaignStatusEnum.paused
     is_managed: bool = False
     budget_limit: Decimal | None = None
     spend_today: Decimal = Decimal("0")
     stock_days_left: int | None = None
     stock_days_min: int | None = None
     schedule_enabled: bool = False
-    current_status: CampaignStatusEnum = CampaignStatusEnum.active
+    current_status: CampaignStatusEnum = CampaignStatusEnum.paused
 
 class CampaignCreate(CampaignBase):
     pass

@@ -13,10 +13,6 @@ res = requests.post("http://127.0.0.1:/api/campaigns/id/evaluate")
 
 
 
-# CRUD кампаний:
-# Расписание:
-# Вычисление правил:
-# 3. Иерархия правил
 # 4. API эндпоинты
 # POST /campaigns — создание кампании
 # GET /campaigns — список кампаний с пагинацией

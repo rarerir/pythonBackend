@@ -40,7 +40,7 @@ class Campaign(Base):
 
 
     schedules = relationship("CampaignSchedule", back_populates="campaign",
-                             cascade="all, delete-orphan")
+                            cascade="all, delete-orphan")
     rule_triggers = relationship("RuleEvalLog", back_populates="campaign",
                                  cascade="all, delete-orphan")
 
