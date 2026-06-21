@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 from backend.app.models import Campaign
-from schemas import CampaignStatusEnum
+from backend.app.schemas import CampaignStatusEnum
 
 class Rule(ABC):
     @abstractmethod

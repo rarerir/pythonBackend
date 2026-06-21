@@ -1,7 +1,7 @@
 from sqlalchemy import *
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from database import Base
+from backend.app.database import Base
 
 import enum
 class CampaignStatusEnum(str, enum.Enum):

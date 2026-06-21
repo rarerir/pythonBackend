@@ -3,6 +3,7 @@ from datetime import datetime, time
 from decimal import Decimal
 from enum import Enum
 
+
 class CampaignStatusEnum(str, Enum):
     active = "active"
     paused = "paused"
@@ -54,12 +55,20 @@ class ScheduleOut(ScheduleBase):
     model_config = {"from_attributes": True}
 
 # логи
+class CampaignSnapshot(CampaignBase):
+    details: str | None = None
+    time: datetime
+
 class HistoryOut(BaseModel):
     id: UUID4
     campaign_id: UUID4
     triggered_rule: str | None = None
     previous_target: CampaignStatusEnum | None = None
     new_target: CampaignStatusEnum | None = None
-    context: dict = {}
+    context: dict
     created_at: datetime
     model_config = {"from_attributes": True}
+
+class PaginatedHistoryResponse(BaseModel):
+    total: int
+    items: list[HistoryOut]

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from backend.app.database import get_db
 from backend.app.models import CampaignSchedule, Campaign
-from backend.app.schemas import ScheduleCreate, ScheduleOut, CampaignOut
+from backend.app.schemas import ScheduleCreate, ScheduleOut
 
 router = APIRouter(prefix="/campaigns", tags=["schedules"])
 
