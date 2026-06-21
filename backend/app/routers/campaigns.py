@@ -1,13 +1,16 @@
+from datetime import datetime
 from uuid import UUID
 
 from fastapi import HTTPException, Depends, APIRouter
-
+from requests.packages import target
 
 from sqlalchemy.orm import Session
 
 from backend.app.database import get_db
-from backend.app.models import Campaign
+from backend.app.models import Campaign, RuleEvalLog
 from backend.app.schemas import CampaignOut, CampaignCreate, CampaignUpdate
+
+from backend.app.rules import RULES_LIST, Rule
 
 router = APIRouter(prefix="/campaigns", tags=["campaigns"])
 
@@ -46,7 +49,12 @@ def patch_campaign(id: UUID, data : CampaignUpdate, db: Session = Depends(get_db
     db.refresh(campaign)
     return campaign
 
-@router.post("/{id}/evaluate")
-def eval_status(id: str):
+@router.post("/{campaign_id}/evaluate")
+def evaluate(campaign_id: UUID, db: Session = Depends(get_db)):
+    campaign = get_campaign_local(campaign_id, db)
 
-    return str
+    for rule in RULES_LIST:
+        current = rule.evaluate(campaign, datetime.now())
+        if current:
+            return current
+    return ('active', 'Ограничений нет')
